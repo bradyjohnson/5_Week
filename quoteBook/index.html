@@ -6,7 +6,7 @@
   </head>
   <body ng-controller="MainController">
 
-  <button ng-click="showFilter = !showFilter" ng-click="!showAddQuote = !showAddQuote">Filter Quote</button>
+  <button ng-click="showFilter = !showFilter">Filter Quote</button>
   <button ng-click="showAddQuote = !showAddQuote">Add Quote</button>
   <button ng-click="showDeleteQuote = !showDeleteQuote">Delete Quote</button>
 
@@ -32,6 +32,13 @@
         </div>
     </form>
 
+
+  <div>
+    <input type="number" ng-model="show" placeholder="Show Number">
+    <button ng-show="show === 1" ng-click="show = 2">button one</button>
+    <button ng-show="show === 2" ng-click="show = 3">button two</button>
+    <button ng-show="show === 3" ng-click="show = 1">button three</button>
+  </div>
 
 
 
