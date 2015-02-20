@@ -1,25 +1,46 @@
-var app = angular.module('chatroom');
-
-app.controller('mainCtrl', function($scope, parseService){
-
+var app = angular.module('chatroom').controller('mainCtrl', function(Sscope, parseService, $interval){
   $scope.getParseData = function(){
-    parseService.getData().then(function(results){
-      $scope.messages = results
-    })
-  }
-  setInterval(function(){
-    $scope.getParseData();
-  }, 1500)
+    parseService.getData().then(function(response){
+      $scope.messages = response.data.results;
+    });
+  };
 
-  $scope.postData = function(){
-    parseService.postData($scope.message)
-  }
+  $scope.postData = function(message){
+    parseService.postData(message).then(function(response){
+      delete $scope.message;
+    });
+  };
 
-  $scope.formatDate = function(dateString){
-    return new Date(dateString).toLocaleString();
-  }
-
+$scope.getParseData();
+$interval($scope.getParseData, 1500);
 });
+
+
+
+//
+//app.controller('mainCtrl', function($scope, parseService){
+//
+//  $scope.getParseData = function(){
+//    parseService.getData().then(function(results){
+//      $scope.messages = results
+//    })
+//  }
+//
+//  $scope.getParseData();
+//  setInterval(function(){
+//    $scope.getParseData();
+//  }, 1500)
+//
+//  $scope.postData = function(){
+//    parseService.postData($scope.message)
+//    delete $scope.message;
+//  }
+//
+//  $scope.formatDate = function(dateString){
+//    return new Date(dateString).toLocaleString();
+//  }
+//
+//});
 
 
 

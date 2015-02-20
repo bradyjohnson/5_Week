@@ -1,35 +1,55 @@
-var app = angular.module('chatroom');
-
-app.service('parseService', function($http, $q) {
-
-  this.getParseData = function () {
-    return $http({
-      method: 'GET',
-      url: "https://api.parse.com/1/classes/chat?order=-createdAt"
-    }).then(function (res) {
-      return res.data
-    })
-  };
-
-  this.postData = function (message) {
-    return $http({
-      method: 'POST',
-      url: 'https://api.parse.com/1/classes/chat',
-      params: {sort: 'ascending'},
-      data: {'text': message}
-    })
-  };
+var app = angular.module('chatroom').service('parseService', function($http){
 
   this.getData = function(){
-    return $http({
-      'method': 'get',
-      'url': "https://api.parse.com/1/classes/chat?order=-createdAt"
-    }).then(function(res){
-      return res.data.results
-    })
-  }
+    return $http.get('https://api.parse.com/1/classes/chat?order+-createdAt');
+  };
 
+  this.postData = function(message){
+    return $http.post('https://api.parse.com/1/classes/chat', {text: message});
+  };
 });
+
+
+
+
+
+
+
+
+
+
+
+
+//app.service('parseService', function($http, $q) {
+//
+//  this.getParseData = function () {
+//    return $http({
+//      method: 'GET',
+//      url: "https://api.parse.com/1/classes/chat?order=-createdAt"
+//    }).then(function (res) {
+//      return res.data
+//    })
+//  };
+//
+//  this.postData = function (message) {
+//    return $http({
+//      method: 'POST',
+//      url: 'https://api.parse.com/1/classes/chat',
+//      params: {sort: 'ascending'},
+//      data: {'text': message}
+//    })
+//  };
+//
+//  this.getData = function(){
+//    return $http({
+//      'method': 'get',
+//      'url': "https://api.parse.com/1/classes/chat?order=-createdAt"
+//    }).then(function(res){
+//      return res.data.results
+//    })
+//  }
+//
+//});
 
 //Here you'll need to create two methods. One called postData and the other called getData.
 //On the lines below create a getData method. This method will retrieve data from the parse backend.
